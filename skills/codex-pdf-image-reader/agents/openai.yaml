@@ -1,0 +1,4 @@
+interface:
+  display_name: "PDF Image Reader"
+  short_description: "Render PDFs into text plus selected page images"
+  default_prompt: "Use $codex-pdf-image-reader to read this PDF with text extraction and selected visual page checks."
