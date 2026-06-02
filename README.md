@@ -38,11 +38,9 @@ This skill codifies a field-tested pattern: text-first reading plus selective vi
 git clone https://github.com/parkersix/codex-pdf-image-reader.git
 cd codex-pdf-image-reader
 
-python3 -m venv .venv
-. .venv/bin/activate
-python3 -m pip install -r requirements.txt
+bash scripts/install.sh --with-deps
 
-python3 skills/codex-pdf-image-reader/scripts/pdf_image_reader.py path/to/paper.pdf
+skills/codex-pdf-image-reader/scripts/run_pdf_image_reader.sh path/to/paper.pdf
 ```
 
 The command prints JSON containing the output directory, report path, and manifest path.
@@ -50,27 +48,33 @@ The command prints JSON containing the output directory, report path, and manife
 Render specific claim-bearing pages:
 
 ```bash
-python3 skills/codex-pdf-image-reader/scripts/pdf_image_reader.py path/to/paper.pdf --pages 1,3,9-11 --dpi 144
+skills/codex-pdf-image-reader/scripts/run_pdf_image_reader.sh path/to/paper.pdf --pages 1,3,9-11 --dpi 144
 ```
 
 Bound automatic rendering:
 
 ```bash
-python3 skills/codex-pdf-image-reader/scripts/pdf_image_reader.py path/to/paper.pdf --max-visual-pages 6
+skills/codex-pdf-image-reader/scripts/run_pdf_image_reader.sh path/to/paper.pdf --max-visual-pages 6
 ```
 
 ## Install The Skill
 
-Install into Codex's skill directory:
+Install into Codex's skill directory and create a persistent runtime environment:
 
 ```bash
-bash scripts/install.sh
+bash scripts/install.sh --with-deps
 ```
 
 This copies `skills/codex-pdf-image-reader` into:
 
 ```text
 ${CODEX_HOME:-$HOME/.codex}/skills/codex-pdf-image-reader
+```
+
+Dependencies are installed into:
+
+```text
+${CODEX_HOME:-$HOME/.codex}/venvs/codex-pdf-image-reader
 ```
 
 Restart Codex so the skill metadata is discovered. Then ask:
@@ -130,11 +134,21 @@ Recommended:
 - Pillow, for optimized JPEG output
 - pypdf and pdfplumber, for future text/table extraction extensions
 
-Install:
+For repeated Codex use, prefer the persistent user-level runtime:
 
 ```bash
+bash scripts/install.sh --with-deps
+```
+
+For repository development, a local project venv is also fine:
+
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
 python3 -m pip install -r requirements.txt
 ```
+
+Avoid creating a fresh temporary venv for every PDF run unless you explicitly want one-off isolation.
 
 ## License
 

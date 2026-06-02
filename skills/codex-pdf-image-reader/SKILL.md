@@ -11,23 +11,33 @@ Use this skill to build a compact "reading pack" from a PDF: extracted text, sel
 
 ## Quick Start
 
-Run the bundled script on the PDF. Prefer a temporary output directory unless the user asks for durable artifacts.
+Run the bundled runner on the PDF. Resolve `scripts/run_pdf_image_reader.sh` relative to this `SKILL.md`. Prefer a temporary output directory unless the user asks for durable artifacts.
 
 ```bash
-python3 skills/codex-pdf-image-reader/scripts/pdf_image_reader.py path/to/paper.pdf
+scripts/run_pdf_image_reader.sh path/to/paper.pdf
 ```
 
 For claim-bearing figures, provide explicit pages:
 
 ```bash
-python3 skills/codex-pdf-image-reader/scripts/pdf_image_reader.py path/to/paper.pdf --pages 1,3,9-11 --dpi 144
+scripts/run_pdf_image_reader.sh path/to/paper.pdf --pages 1,3,9-11 --dpi 144
 ```
 
-If PyMuPDF is missing, install the minimal dependencies in a local or temporary environment:
+## Runtime Policy
+
+Prefer a persistent Codex runtime instead of creating a new temporary virtual environment for every PDF. The default persistent runtime is:
+
+```text
+${CODEX_HOME:-$HOME/.codex}/venvs/codex-pdf-image-reader
+```
+
+If dependencies are missing and the user permits dependency installation, run once:
 
 ```bash
-python3 -m pip install PyMuPDF pypdf pdfplumber Pillow
+scripts/bootstrap_runtime.sh
 ```
+
+The runner also honors `CODEX_PDF_IMAGE_READER_PYTHON` and `CODEX_PDF_IMAGE_READER_VENV`. Use a temporary venv only for one-off validation or when a persistent user-level environment is not allowed.
 
 ## Workflow
 

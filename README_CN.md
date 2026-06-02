@@ -7,12 +7,14 @@
 快速运行：
 
 ```bash
-python3 -m pip install -r requirements.txt
-python3 skills/codex-pdf-image-reader/scripts/pdf_image_reader.py path/to/paper.pdf --pages 1,3,9-11
+bash scripts/install.sh --with-deps
+skills/codex-pdf-image-reader/scripts/run_pdf_image_reader.sh path/to/paper.pdf --pages 1,3,9-11
 ```
 
 安装到 Codex：
 
 ```bash
-bash scripts/install.sh
+bash scripts/install.sh --with-deps
 ```
+
+依赖会安装到持久化用户环境 `${CODEX_HOME:-$HOME/.codex}/venvs/codex-pdf-image-reader`，避免每次阅读 PDF 都重新创建临时 venv。临时 venv 更适合一次性验证或隔离测试。
