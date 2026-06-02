@@ -34,34 +34,35 @@ This skill codifies a field-tested pattern: text-first reading plus selective vi
 
 ## Quick Start
 
-```bash
-git clone https://github.com/parkersix/codex-pdf-image-reader.git
-cd codex-pdf-image-reader
+Ask Codex:
 
-bash scripts/install.sh --with-deps
-
-skills/codex-pdf-image-reader/scripts/run_pdf_image_reader.sh path/to/paper.pdf
+```text
+Install the Codex skill from https://github.com/ParkerGong/codex-pdf-image-reader.
+Use a persistent Codex venv for its Python dependencies.
+Then use $codex-pdf-image-reader to read path/to/paper.pdf with text extraction and selected visual page checks.
 ```
 
-The command prints JSON containing the output directory, report path, and manifest path.
+Codex should install the skill into `${CODEX_HOME:-$HOME/.codex}/skills/codex-pdf-image-reader`, create or reuse `${CODEX_HOME:-$HOME/.codex}/venvs/codex-pdf-image-reader`, and run the bundled reader.
 
 Render specific claim-bearing pages:
 
-```bash
-skills/codex-pdf-image-reader/scripts/run_pdf_image_reader.sh path/to/paper.pdf --pages 1,3,9-11 --dpi 144
+```text
+Use $codex-pdf-image-reader to read path/to/paper.pdf. Render pages 1, 3, and 9-11 at 144 DPI.
 ```
 
 Bound automatic rendering:
 
-```bash
-skills/codex-pdf-image-reader/scripts/run_pdf_image_reader.sh path/to/paper.pdf --max-visual-pages 6
+```text
+Use $codex-pdf-image-reader to read path/to/paper.pdf and render at most 6 visual pages.
 ```
 
 ## Install The Skill
 
-Install into Codex's skill directory and create a persistent runtime environment:
+Manual install:
 
 ```bash
+git clone https://github.com/ParkerGong/codex-pdf-image-reader.git
+cd codex-pdf-image-reader
 bash scripts/install.sh --with-deps
 ```
 
@@ -82,6 +83,14 @@ Restart Codex so the skill metadata is discovered. Then ask:
 ```text
 Use $codex-pdf-image-reader to read this PDF with text extraction and selected visual page checks.
 ```
+
+Manual run after installation:
+
+```bash
+skills/codex-pdf-image-reader/scripts/run_pdf_image_reader.sh path/to/paper.pdf
+```
+
+The command prints JSON containing the output directory, report path, and manifest path.
 
 ## Agent Workflow
 
